@@ -1197,7 +1197,9 @@ void initialize_mote(){
 	// SCM3C Analog Scan Chain Initialization
 	//--------------------------------------------------------
 	// Init LDO control
-	init_ldo_control();
+ //init_ldo_control();
+//set_asc_bit(914);
+	clear_asc_bit(914);
 
 	// Set LDO reference voltages
 	// set_VDDD_LDO_voltage(0);
@@ -1208,11 +1210,11 @@ void initialize_mote(){
 	// GPI_control(0,0,0,0);
 	
 	// // Select banks for GPIO outputs
-	// // GPO_control(6,5,6,0);
+	GPO_control(6,6,6,0); //GPO_control(GPIO0-3, GPIO4-7, GPIO8-11, 12-15);
 	
 	// // Set all GPIOs as outputs
-	// GPI_enables(0x0000);	
-	// GPO_enables(0xFFFF);
+	GPI_enables(0x0000);	
+	GPO_enables(0xF00F);
 
 
 	// Set initial coarse/fine on HF_CLOCK
@@ -1228,6 +1230,10 @@ void initialize_mote(){
 	set_asc_bit(553);
 	
 	// HF_CLOCK will be trimmed to 20MHz, so set RFTimer div value to 40 to get 500kHz (inverted, so 1101 0111)
+	set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
+	set_asc_bit(144); //ASC(144) sel signal for HCLK divider2 maxdivenb between Memory mapped vs	ASC(145) mux in0, 0 ASC[145] 1 analog_cfg[14]
+	
+	
 	set_asc_bit(49);
 	set_asc_bit(48);
 	clear_asc_bit(47);
@@ -1237,6 +1243,17 @@ void initialize_mote(){
 	set_asc_bit(43);
 	set_asc_bit(42);
 	
+	// clear_asc_bit(49);
+	// clear_asc_bit(48);
+	// clear_asc_bit(47);
+	// clear_asc_bit(46);
+	// clear_asc_bit(45);
+	// clear_asc_bit(44);
+	// clear_asc_bit(43);
+	// clear_asc_bit(42);
+	
+	
+	
 	// Set 2M RC as source for chip CLK
 	set_asc_bit(1156);
 	
@@ -1244,33 +1261,33 @@ void initialize_mote(){
 	set_asc_bit(623);
 	
 	// Enable passthrough on chip CLK divider
-	set_asc_bit(41);
-	
+	//set_asc_bit(41);
+	clear_asc_bit(41);
 	// Init counter setup - set all to analog_cfg control
 	// ASC[0] is leftmost
 	//ASC[0] |= 0x6F800000; 
 	for(t=2; t<9; t++) set_asc_bit(t);	
 		
 	// Init RX
-	radio_init_rx_MF();
+	// radio_init_rx_MF();
 		
 	// Init TX
-	radio_init_tx();
+	// radio_init_tx();
 		
 	// Set initial IF ADC clock frequency
-	set_IF_clock_frequency(IF_coarse, IF_fine, 0);
+	// set_IF_clock_frequency(IF_coarse, IF_fine, 0);
 
 	// Set initial TX clock frequency
-	set_2M_RC_frequency(31, 31, RC2M_coarse, RC2M_fine, RC2M_superfine);
+	// set_2M_RC_frequency(31, 31, RC2M_coarse, RC2M_fine, RC2M_superfine);
 
 	// Turn on RC 2M for cal
-	set_asc_bit(1114);
+	// set_asc_bit(1114);
 		
 	// Set initial LO frequency
-	LC_monotonic(LC_code);
+	// LC_monotonic(LC_code);
 	
 	// Init divider settings
-	radio_init_divider(2000);
+	// radio_init_divider(2000);
 
 	// SENSOR ADC INITIALIZATION
 	if (0) {

@@ -98,7 +98,7 @@ int main(void) {
 
 	
 
-
+	printf("Hello world!\n");
 	while(1) {
 		for(t=0; t<10000; t++);
 	}
