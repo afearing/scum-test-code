@@ -1197,7 +1197,9 @@ void initialize_mote(){
 	// SCM3C Analog Scan Chain Initialization
 	//--------------------------------------------------------
 	// Init LDO control
- //init_ldo_control();
+	init_ldo_control();
+	//set_asc_bit(914);
+	//clear_asc_bit(914);
 
 	// Set LDO reference voltages
 	// set_VDDD_LDO_voltage(0);
@@ -1228,8 +1230,8 @@ void initialize_mote(){
 	set_asc_bit(553);
 	
 	// HF_CLOCK will be trimmed to 20MHz, so set RFTimer div value to 40 to get 500kHz (inverted, so 1101 0111)
-	set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
-	set_asc_bit(144); //ASC(144) sel signal for HCLK divider2 maxdivenb between Memory mapped vs	ASC(145) mux in0, 0 ASC[145] 1 analog_cfg[14]
+	//set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
+	//set_asc_bit(144); //ASC(144) sel signal for HCLK divider2 maxdivenb between Memory mapped vs	ASC(145) mux in0, 0 ASC[145] 1 analog_cfg[14]
 	
 	
 	set_asc_bit(49);
@@ -1259,8 +1261,8 @@ void initialize_mote(){
 	set_asc_bit(623);
 	
 	// Enable passthrough on chip CLK divider
-	//set_asc_bit(41);
-	clear_asc_bit(41);
+	set_asc_bit(41);
+	//clear_asc_bit(41);
 	// Init counter setup - set all to analog_cfg control
 	// ASC[0] is leftmost
 	//ASC[0] |= 0x6F800000; 
