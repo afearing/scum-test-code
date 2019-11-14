@@ -1198,8 +1198,6 @@ void initialize_mote(){
 	//--------------------------------------------------------
 	// Init LDO control
  //init_ldo_control();
-//set_asc_bit(914);
-	clear_asc_bit(914);
 
 	// Set LDO reference voltages
 	// set_VDDD_LDO_voltage(0);
