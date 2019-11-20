@@ -1230,7 +1230,7 @@ void initialize_mote(){
 	set_asc_bit(553);
 	
 	// HF_CLOCK will be trimmed to 20MHz, so set RFTimer div value to 40 to get 500kHz (inverted, so 1101 0111)
-	//set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
+	set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
 	//set_asc_bit(144); //ASC(144) sel signal for HCLK divider2 maxdivenb between Memory mapped vs	ASC(145) mux in0, 0 ASC[145] 1 analog_cfg[14]
 	
 	
@@ -1243,14 +1243,14 @@ void initialize_mote(){
 	set_asc_bit(43);
 	set_asc_bit(42);
 	
-	// clear_asc_bit(49);
-	// clear_asc_bit(48);
-	// clear_asc_bit(47);
-	// clear_asc_bit(46);
-	// clear_asc_bit(45);
-	// clear_asc_bit(44);
-	// clear_asc_bit(43);
-	// clear_asc_bit(42);
+	clear_asc_bit(50);
+	clear_asc_bit(51);
+	clear_asc_bit(52);
+	clear_asc_bit(53);
+	clear_asc_bit(54);
+	set_asc_bit(55);
+	clear_asc_bit(56);
+	clear_asc_bit(57);
 	
 	
 	
