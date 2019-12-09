@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	# Program SCM
 	if True:
 		program_cortex_specs = dict(teensy_port=programmer_port,
-								uart_port=None, #scm_port
+								uart_port=None, #None (Terminal) or scm_port (python/git bash console)
 								file_binary="./code.bin",
 								boot_mode="optical",
 								skip_reset=False,

@@ -294,22 +294,22 @@ void init_ldo_control(void){
 	// Analog scan chain setup for radio LDOs
 	// Memory mapped control signals from the cortex are connected to fsm_pon signals
 	clear_asc_bit(501); // = scan_pon_if
-	set_asc_bit(502); // = scan_pon_lo
+	clear_asc_bit(502); // = scan_pon_lo
 	clear_asc_bit(503); // = scan_pon_pa
 	clear_asc_bit(504); // = gpio_pon_en_if
-	set_asc_bit(505); // = fsm_pon_en_if
+	clear_asc_bit(505); // = fsm_pon_en_if
 	clear_asc_bit(506); // = gpio_pon_en_lo
-	set_asc_bit(507); // = fsm_pon_en_lo 
+	clear_asc_bit(507); // = fsm_pon_en_lo 
 	clear_asc_bit(508); // = gpio_pon_en_pa
-	set_asc_bit(509); // = fsm_pon_en_pa
-	set_asc_bit(510); // = master_ldo_en_if
-	set_asc_bit(511); // = master_ldo_en_lo
-	set_asc_bit(512); // = master_ldo_en_pa
-	set_asc_bit(513); // = scan_pon_div
+	clear_asc_bit(509); // = fsm_pon_en_pa
+	clear_asc_bit(510); // = master_ldo_en_if //
+	clear_asc_bit(511); // = master_ldo_en_lo //
+	clear_asc_bit(512); // = master_ldo_en_pa //
+	clear_asc_bit(513); // = scan_pon_div
 	clear_asc_bit(514); // = gpio_pon_en_div
-	set_asc_bit(515); // = fsm_pon_en_div
-	set_asc_bit(516); // = master_ldo_en_div
-
+	clear_asc_bit(515); // = fsm_pon_en_div
+	clear_asc_bit(516); // = master_ldo_en_div
+	
 	// AUX LDO Control:
 	// ASC<914> chooses whether ASC<916> or analog_cfg<167> controls LDO
 	// 0 = ASC<916> has control
@@ -318,7 +318,7 @@ void init_ldo_control(void){
 	//set_asc_bit(916);
 	
 	// Initialize all radio LDOs and AUX to off
-	//ANALOG_CFG_REG__10 = 0x0000;
+	// ANALOG_CFG_REG__10 = 0x0000;
 
 	// Examples of controlling AUX LDO:
 
@@ -326,12 +326,12 @@ void init_ldo_control(void){
 	// ANALOG_CFG_REG__10 = 0x0080; 
 
 	// Aux LDO  = off via ASC
-	// clear_asc_bit(914);
-	// set_asc_bit(916);
+	 //clear_asc_bit(914);
+	 //set_asc_bit(916);
 
 	// Aux LDO  = on via ASC
-	// clear_asc_bit(914);
-	// clear_asc_bit(916);	
+	 clear_asc_bit(914);
+	 clear_asc_bit(916);	
 
 	// Memory-mapped LDO control
 	// ANALOG_CFG_REG__10 = AUX_EN | DIV_EN | PA_EN | IF_EN | LO_EN | PA_MUX | IF_MUX | LO_MUX
@@ -866,7 +866,7 @@ void radio_init_rx_ZCC(){
 	set_IF_comparator_trim_I(0,10);
 
 	// Set LDO reference voltage
-	set_IF_LDO_voltage(0);
+	set_IF_LDO_voltage(127);
 
 	// Set RST_B to analog_cfg[75]
 	set_asc_bit(240);
@@ -1198,13 +1198,12 @@ void initialize_mote(){
 	//--------------------------------------------------------
 	// Init LDO control
 	init_ldo_control();
-	//set_asc_bit(914);
 	//clear_asc_bit(914);
-
+	// ANALOG_CFG_REG__10 = 0x0080;
 	// Set LDO reference voltages
-	// set_VDDD_LDO_voltage(0);
-	//set_AUX_LDO_voltage(0);
-	set_ALWAYSON_LDO_voltage(0);
+	set_VDDD_LDO_voltage(127);
+	set_AUX_LDO_voltage(127);
+	set_ALWAYSON_LDO_voltage(127);
 		
 	// Select banks for GPIO inputs
 	// GPI_control(0,0,0,0);
@@ -1230,7 +1229,7 @@ void initialize_mote(){
 	set_asc_bit(553);
 	
 	// HF_CLOCK will be trimmed to 20MHz, so set RFTimer div value to 40 to get 500kHz (inverted, so 1101 0111)
-	set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
+	// set_asc_bit(25); //divider_CortexM0_enable, 1 is enable, HCLK
 	//set_asc_bit(144); //ASC(144) sel signal for HCLK divider2 maxdivenb between Memory mapped vs	ASC(145) mux in0, 0 ASC[145] 1 analog_cfg[14]
 	
 	
@@ -1243,14 +1242,34 @@ void initialize_mote(){
 	set_asc_bit(43);
 	set_asc_bit(42);
 	
-	clear_asc_bit(50);
-	clear_asc_bit(51);
-	clear_asc_bit(52);
-	clear_asc_bit(53);
-	clear_asc_bit(54);
-	set_asc_bit(55);
-	clear_asc_bit(56);
-	clear_asc_bit(57);
+	
+	// clear_asc_bit(50);
+	// clear_asc_bit(51);
+	// set_asc_bit(52); // inverted
+	// clear_asc_bit(53);
+	// clear_asc_bit(54);
+	// clear_asc_bit(55);
+	// clear_asc_bit(56);
+	// clear_asc_bit(57);
+	
+	// hclk divider = 40
+	// clear_asc_bit(50);
+	// clear_asc_bit(51);
+	// clear_asc_bit(52);
+	// set_asc_bit(53);
+	// clear_asc_bit(54);
+	// set_asc_bit(55);
+	// clear_asc_bit(56);
+	// clear_asc_bit(57);
+	// hclk divider reset
+	// clear_asc_bit(50);
+	// clear_asc_bit(51);
+	// clear_asc_bit(52);
+	// clear_asc_bit(53);
+	// clear_asc_bit(54);
+	// clear_asc_bit(55);
+	// clear_asc_bit(56);
+	// clear_asc_bit(57);
 	
 	
 	

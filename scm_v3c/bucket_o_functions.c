@@ -249,3 +249,24 @@ void divProgram(unsigned int div_ratio, unsigned int reset, unsigned int enable)
 	ANALOG_CFG_REG__5 = ~div_code_1;
 	ANALOG_CFG_REG__6 = ~div_code_2;
 }
+
+void setHCLKdivider(unsigned int divisor){
+	// Inputs:
+	// 	divisor: 0 <= divisor <= 255
+	// Outputs:
+	//	None. setHCLKdivider sets analog scan chain (ASC) bits 50 - 57 (inclusive) to set the HCLK divider. Bit 52 is inverted
+	unsigned int i = 0;
+	unsigned int divider_shifted = 0
+	if(1>=divisor){
+	set_asc_bit(41);// Enable passthrough on chip CLK divider to allow HCLK to be divided by 1
+	}
+	for(i = 50, divider_shifted = divider; i < 58; ++i, divider_shifted = divider_shifted >> 1){
+
+		if((divider_shifted & 1) || (52 == i)){
+			set_asc_bit(i);
+		}
+		else{
+			clear_asc_bit(i);
+		}
+	}
+}

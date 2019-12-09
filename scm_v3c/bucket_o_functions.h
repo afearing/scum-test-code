@@ -14,3 +14,4 @@ void prescaler(int code);
 void LC_monotonic(int LC_code);
 void LC_FREQCHANGE(int coarse, int mid, int fine);
 void divProgram(unsigned int div_ratio, unsigned int reset, unsigned int enable);
+void setHCLKdivider(unsigned int divisor);
