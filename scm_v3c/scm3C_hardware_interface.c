@@ -1213,9 +1213,8 @@ void initialize_mote(){
 	
 	// // Set all GPIOs as outputs
 	GPI_enables(0x0000);	
-	GPO_enables(0xF00F);
-
-
+	GPO_enables(0x1040); //0x(12-15, 8-11, 4-7, 0-3), where LSB in hex digit is lowest GPIO number. e.g. 0x1000 turns on GPIO 12, 0x8000 turns on GPIO 15
+	//GPIO_REG__OUTPUT=0x0000;
 	// Set initial coarse/fine on HF_CLOCK
 	//coarse 0:4 = 860 861 875b 876b 877b
 	//fine 0:4 870 871 872 873 874b
@@ -1243,14 +1242,14 @@ void initialize_mote(){
 	set_asc_bit(42);
 	
 	
-	// clear_asc_bit(50);
-	// clear_asc_bit(51);
-	// set_asc_bit(52); // inverted
-	// clear_asc_bit(53);
-	// clear_asc_bit(54);
-	// clear_asc_bit(55);
-	// clear_asc_bit(56);
-	// clear_asc_bit(57);
+	clear_asc_bit(50);
+	clear_asc_bit(51);
+	set_asc_bit(52); // inverted
+	clear_asc_bit(53);
+	clear_asc_bit(54);
+	clear_asc_bit(55);
+	clear_asc_bit(56);
+	clear_asc_bit(57);
 	
 	// hclk divider = 40
 	// clear_asc_bit(50);
